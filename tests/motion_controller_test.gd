@@ -42,12 +42,15 @@ func run_gate() -> void:
 	check(presenter.accept(_payload(21, "WALKING", [{"type": "WARNING", "message": "Impact."}])), "warning event accepted")
 	check(motion.active_one_shot == &"hazard_reaction", "warning starts one-shot")
 	check(motion.one_shot_play_count == one_shot_count + 1, "one-shot fires exactly once")
+	check(presenter.accept(_payload(22, "HARVESTING")), "new persistent state accepted during one-shot")
+	check(motion.persistent_motion == &"harvesting", "latest persistent motion is retained during one-shot")
+	check(motion.animation_player.current_animation == &"hazard_reaction", "persistent update does not interrupt one-shot")
 	await create_timer(0.4).timeout
 	check(motion.active_one_shot.is_empty(), "one-shot completes")
-	check(motion.animation_player.current_animation == &"walking", "persistent walking resumes")
+	check(motion.animation_player.current_animation == &"harvesting", "latest persistent motion resumes")
 
 	check(not presenter.accept(_payload(19, "DECISION", [{"type": "WARNING", "message": "Stale."}])), "stale telemetry rejected")
-	check(motion.persistent_motion == &"walking", "stale telemetry does not change motion")
+	check(motion.persistent_motion == &"harvesting", "stale telemetry does not change motion")
 	check(motion.one_shot_play_count == one_shot_count + 1, "stale event does not fire one-shot")
 
 	var before_layout := motion.one_shot_play_count
@@ -89,4 +92,3 @@ func _payload(sequence: int, status: String, events: Array = []) -> Dictionary:
 		"log_events": events,
 		"decision_state": "CONTINUE_RETURN" if status == "DECISION" else "NONE",
 	}
-
