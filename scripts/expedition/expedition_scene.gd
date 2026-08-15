@@ -12,11 +12,14 @@ extends Control
 @onready var hazard_label: Label = %HazardLabel
 @onready var decision_ui: HBoxContainer = %DecisionUI
 @onready var golem_view: GolemView = %GolemView
+@onready var motion_controller: MotionController = %MotionController
 
 
 func _ready() -> void:
 	presenter.presentation_state_changed.connect(_apply_presentation_state)
+	presenter.presentation_state_changed.connect(motion_controller.apply_state)
 	presenter.transient_events_emitted.connect(_handle_transient_events)
+	presenter.transient_events_emitted.connect(motion_controller.apply_transient_events)
 	presenter.telemetry_rejected.connect(_on_rejected)
 	source.telemetry_received.connect(presenter.accept)
 	get_viewport().size_changed.connect(_apply_responsive_layout)
@@ -29,7 +32,6 @@ func _apply_presentation_state(state: PresentationState) -> void:
 	durability_label.text = "%d%%" % state.telemetry_state["durability"]
 	cargo_label.text = "%d / %d" % [state.telemetry_state["cargo"], state.telemetry_state["cargo_capacity"]]
 	status_label.text = state.golem_state["status"]
-	golem_view.set_status(state.golem_state["status"])
 	decision_ui.visible = state.decision_state == "CONTINUE_RETURN"
 	hazard_panel.visible = state.warning_state["active"]
 	if state.warning_state["active"]:
