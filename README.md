@@ -38,6 +38,10 @@ ExpeditionPresenter
 Viewは`ExpeditionTelemetry`を直接参照しません。`PresentationState`は受信値を表示用に写像するだけで、損傷、成功条件、報酬などのゲーム結果を計算しません。
 Presenterは最新のPersistent Stateを保持し、View再生成時にはTelemetryを再処理せず再バインドできます。この操作でTransient Eventは再発火しません。StateとEvent BatchはネストしたDictionary／Arrayを含めてread-only化され、consumerからPresenter保持状態を変更できません。
 
+## Motion prototype
+
+`MotionController`がPersistent Stateを`AnimationPlayer`のループへ、Transient Eventをone-shot reactionへ写像します。仮図形の`GolemView`はstatusを解釈せず、AnimationPlayerから受け取るoffset、rotation、leg phase、reaction strengthだけを描画します。one-shot終了後は保持中のpersistent motionへ復帰します。
+
 Godot 4で `project.godot` を開いて実行してください。
 
 ## Boundaries
