@@ -30,6 +30,19 @@ func _init() -> void:
 	assert(latest_state.telemetry_state["cargo"] == 4)
 	assert(latest_batch.events[0]["type"] == "CARGO_SECURED")
 	assert(not _has_property(latest_state, "transient_events"), "persistent state must not own transient events")
+	assert(ImmutableSnapshot.is_deeply_read_only(latest_state.golem_state))
+	assert(ImmutableSnapshot.is_deeply_read_only(latest_state.environment_state))
+	assert(ImmutableSnapshot.is_deeply_read_only(latest_state.warning_state))
+	assert(ImmutableSnapshot.is_deeply_read_only(latest_state.telemetry_state))
+	assert(ImmutableSnapshot.is_deeply_read_only(latest_batch.events))
+
+	var presenter_state := presenter.current_state()
+	presenter_state.telemetry_state = {"durability": 0}
+	presenter_state.warning_state = {"active": true, "hazards": [{"type": "INJECTED"}]}
+	presenter_state.sequence = -1
+	assert(presenter.current_state().telemetry_state["durability"] == 73, "consumer cannot replace telemetry state")
+	assert(presenter.current_state().warning_state["active"] == false, "expected original warning state")
+	assert(presenter.current_state().sequence == 10, "consumer cannot replace sequence")
 
 	var parsed := ExpeditionTelemetry.from_dictionary(payload)
 	var same_input_a := PresentationState.from_telemetry(parsed)
