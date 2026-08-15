@@ -13,11 +13,13 @@ extends Control
 @onready var decision_ui: HBoxContainer = %DecisionUI
 @onready var golem_view: GolemView = %GolemView
 @onready var motion_controller: MotionController = %MotionController
+@onready var environment_controller: EnvironmentController = %EnvironmentController
 
 
 func _ready() -> void:
 	presenter.presentation_state_changed.connect(_apply_presentation_state)
 	presenter.presentation_state_changed.connect(motion_controller.apply_state)
+	presenter.presentation_state_changed.connect(environment_controller.apply_state)
 	presenter.transient_events_emitted.connect(_handle_transient_events)
 	presenter.transient_events_emitted.connect(motion_controller.apply_transient_events)
 	presenter.telemetry_rejected.connect(_on_rejected)

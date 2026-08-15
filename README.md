@@ -42,6 +42,10 @@ Presenterは最新のPersistent Stateを保持し、View再生成時にはTeleme
 
 `MotionController`がPersistent Stateを`AnimationPlayer`のループへ、Transient Eventをone-shot reactionへ写像します。仮図形の`GolemView`はstatusを解釈せず、AnimationPlayerから受け取るoffset、rotation、leg phase、reaction strengthだけを描画します。one-shot終了後は保持中のpersistent motionへ復帰します。
 
+## Environment prototype
+
+`EnvironmentController`はPresentationStateから表示用の`depth / hazards / activity`を決定します。`EnvironmentView`は仮矩形のbackground／midground／foregroundを固定速度比でスクロールし、depthによる視覚強度とhazard overlayを描画します。Telemetry、GolemView、ゲーム進行速度には依存しません。
+
 Godot 4で `project.godot` を開いて実行してください。
 
 ## Boundaries
