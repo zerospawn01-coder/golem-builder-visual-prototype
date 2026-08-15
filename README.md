@@ -46,6 +46,10 @@ Presenterは最新のPersistent Stateを保持し、View再生成時にはTeleme
 
 `EnvironmentController`はPresentationStateから表示用の`depth / hazards / activity`を決定します。`EnvironmentView`は仮矩形のbackground／midground／foregroundを固定速度比でスクロールし、depthによる視覚強度とhazard overlayを描画します。Telemetry、GolemView、ゲーム進行速度には依存しません。
 
+## Visual asset pipeline
+
+元データは`assets/source/`、Godot投入PNGは`assets/runtime/`へ分離します。V4では256×128の決定的なテストパターンをTexture2Dとして読み込み、Lossless、mipmapなし、CanvasItem Linear filter／RepeatでV3の3レイヤーへbindingします。規格は[Visual Asset Pipeline](docs/VISUAL_ASSET_PIPELINE.md)を参照してください。
+
 Godot 4で `project.godot` を開いて実行してください。
 
 ## Boundaries
