@@ -15,7 +15,8 @@ extends Control
 
 
 func _ready() -> void:
-	presenter.telemetry_presented.connect(_present)
+	presenter.presentation_state_changed.connect(_apply_presentation_state)
+	presenter.transient_events_emitted.connect(_handle_transient_events)
 	presenter.telemetry_rejected.connect(_on_rejected)
 	source.telemetry_received.connect(presenter.accept)
 	get_viewport().size_changed.connect(_apply_responsive_layout)
@@ -23,19 +24,22 @@ func _ready() -> void:
 	source.start()
 
 
-func _present(telemetry: ExpeditionTelemetry) -> void:
-	depth_label.text = str(telemetry.depth)
-	durability_label.text = "%d%%" % telemetry.durability
-	cargo_label.text = "%d / %d" % [telemetry.cargo, telemetry.cargo_capacity]
-	status_label.text = telemetry.status
-	golem_view.set_status(telemetry.status)
-	decision_ui.visible = telemetry.decision_state == "CONTINUE_RETURN"
-	hazard_panel.visible = not telemetry.hazards.is_empty()
-	if not telemetry.hazards.is_empty():
-		var hazard := telemetry.hazards[0]
+func _apply_presentation_state(state: PresentationState) -> void:
+	depth_label.text = str(state.telemetry_state["depth"])
+	durability_label.text = "%d%%" % state.telemetry_state["durability"]
+	cargo_label.text = "%d / %d" % [state.telemetry_state["cargo"], state.telemetry_state["cargo_capacity"]]
+	status_label.text = state.golem_state["status"]
+	golem_view.set_status(state.golem_state["status"])
+	decision_ui.visible = state.decision_state == "CONTINUE_RETURN"
+	hazard_panel.visible = state.warning_state["active"]
+	if state.warning_state["active"]:
+		var hazard: Dictionary = state.warning_state["hazards"][0]
 		hazard_label.text = "WARNING: %s / SEVERITY %s" % [hazard.get("type", "UNKNOWN"), hazard.get("severity", "?")]
-	for event in telemetry.log_events:
-		diagnostic_log.append_text("[%03d] %-14s %s\n" % [telemetry.sequence, event.get("type", "EVENT"), event.get("message", "")])
+
+
+func _handle_transient_events(batch: TransientEventBatch) -> void:
+	for event in batch.events:
+		diagnostic_log.append_text("[%03d] %-14s %s\n" % [batch.sequence, event.get("type", "EVENT"), event.get("message", "")])
 
 
 func _on_rejected(sequence: int, reason: String) -> void:

@@ -44,14 +44,17 @@ func run_gate() -> void:
 	check(saw_decision, "CONTINUE / RETURN becomes visible")
 
 	var status_before_resize: String = scene.get_node("%StatusValue").text
+	var log_before_resize: String = scene.get_node("%DiagnosticLog").get_parsed_text()
 	scene.apply_responsive_layout_for_width(600.0)
 	await process_frame
 	check(scene.get_node("%Title").text == "GBE / EXPEDITION", "mobile layout activates")
 	check(scene.get_node("%StatusValue").text == status_before_resize, "responsive switch preserves presentation state")
+	check(scene.get_node("%DiagnosticLog").get_parsed_text() == log_before_resize, "responsive switch does not replay transient events")
 	scene.apply_responsive_layout_for_width(1280.0)
 	await process_frame
 	check(scene.get_node("%Title").text.begins_with("GOLEM BUILDER"), "PC layout reactivates")
 	check(scene.get_node("%StatusValue").text == status_before_resize, "PC switch preserves presentation state")
+	check(scene.get_node("%DiagnosticLog").get_parsed_text() == log_before_resize, "PC switch does not replay transient events")
 	scene.queue_free()
 	await process_frame
 
