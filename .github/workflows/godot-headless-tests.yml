@@ -1,0 +1,42 @@
+name: Godot headless tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - feat/v5-first-real-environment
+
+jobs:
+  logic-integration:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.5
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Import project and register script classes
+        run: godot --headless --path . --editor --quit
+
+      - name: Run headless regression suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          tests=(
+            telemetry_contract_test.gd
+            presentation_state_test.gd
+            motion_controller_test.gd
+            environment_controller_test.gd
+            runtime_gate_test.gd
+            visual_asset_pipeline_test.gd
+            v5_quarry_asset_test.gd
+            pc_performance_gate_test.gd
+            north_star_integration_v0_test.gd
+          )
+          for test_file in "${tests[@]}"; do
+            godot --headless --path . --script "res://tests/${test_file}"
+          done
+
+      # composite_gate_baseline_test.gd intentionally remains outside this
+      # dummy-renderer job. It requires a real framebuffer and is not reported
+      # as PASS here; see docs/QUARRY_ENVIRONMENT_ASSET_SPEC.md.
