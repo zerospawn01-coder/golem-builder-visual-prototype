@@ -55,7 +55,7 @@ func _apply_responsive_layout() -> void:
 
 
 func apply_responsive_layout_for_width(viewport_width: float) -> void:
-	var mobile := viewport_width < 720.0
+	var mobile := viewport_width <= 720.0
 	telemetry_row.add_theme_constant_override("separation", 8 if mobile else 28)
 	%Title.text = "GBE / EXPEDITION" if mobile else "GOLEM BUILDER EXPEDITION / TELEMETRY MONITOR"
 	%MainSplit.vertical = mobile

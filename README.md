@@ -50,7 +50,7 @@ Presenterは最新のPersistent Stateを保持し、View再生成時にはTeleme
 
 元データは`assets/source/`、Godot投入PNGは`assets/runtime/`へ分離します。V4では256×128の決定的なテストパターンをTexture2Dとして読み込み、Lossless、mipmapなし、CanvasItem Linear filter／RepeatでV3の3レイヤーへbindingします。規格は[Visual Asset Pipeline](docs/VISUAL_ASSET_PIPELINE.md)を参照してください。
 
-最初の実背景候補Quarryの寸法、safe crop、seam、alpha、レイヤー責務、メモリ・ファイル容量予算は[Quarry Environment Asset Specification](docs/QUARRY_ENVIRONMENT_ASSET_SPEC.md)で管理します。V5の実画像制作は仕様レビュー完了後に開始します。
+最初の実背景Quarryの寸法、safe crop、seam、alpha、レイヤー責務、Composite Gate、メモリ・ファイル容量予算は[Quarry Environment Asset Specification](docs/QUARRY_ENVIRONMENT_ASSET_SPEC.md)で管理します。V5 SpecificationとV5 DeliverableはFrozenです。Android実機Gateは端末を利用できないためPASSではなくWAIVEDとして記録しています。
 
 Godot 4で `project.godot` を開いて実行してください。
 

@@ -11,6 +11,28 @@ CANONICAL   Visual presentation only
 
 この仕様は最初の実背景1セットをV4 Asset Pipelineへ投入するための制作契約です。ゲーム上の危険度、移動速度、採取量、成功条件は定義しません。ゴーレム、UI、Particle、Shader、動画、端末別画像は対象外です。
 
+## Specification and deliverable lifecycle
+
+```text
+SPECIFICATION
+Status              FROZEN
+
+TECHNICAL REFERENCE
+Quarry V1           Technical baseline / evidence
+Status              PRESERVED
+
+ART REVISION
+Quarry V2           North Star alignment source
+Status              READY FOR PRODUCTION
+
+DELIVERABLE
+Status              FROZEN
+```
+
+`V5 SPECIFICATION FROZEN`は制作契約が固定されたことを示し、`V5 DELIVERABLE FROZEN`はその契約を満たした実素材がruntime framebufferと全Gateを通過したことを示します。この2状態を同一視しません。
+
+Runtime suffix `_v1` denotes the V5 runtime contract version, not the source-art revision number. Quarry V2以降のsourceを承認・exportしても、V5契約内ではruntime filenameの`_v1`を変更しません。
+
 ## Deliverables
 
 | Layer | Runtime filename | Channels | Ownership |
@@ -28,7 +50,28 @@ assets/runtime/environment/quarry/
 └─ foreground/quarry_foreground_v1.png
 ```
 
-編集可能な元データは`assets/source/environment/quarry/`へ置き、`.gdignore`境界の外へ出しません。
+Sourceとruntimeの責務は次で固定します。すべてのsourceは`.gdignore`境界内に置きます。
+
+```text
+assets/source/environment/quarry/
+├─ reference/quarry_v1/
+│  ├─ quarry_background_v1_source.png
+│  ├─ quarry_midground_v1_source.png
+│  └─ quarry_foreground_v1_source.png
+├─ quarry_background_v2_source.*
+├─ quarry_midground_v2_source.*
+└─ quarry_foreground_v2_source.*
+
+approved export
+        ↓
+
+assets/runtime/environment/quarry/
+├─ background/quarry_background_v1.png
+├─ midground/quarry_midground_v1.png
+└─ foreground/quarry_foreground_v1.png
+```
+
+Quarry V1 sourceと検査画像はtechnical referenceとして保存し、North Star alignmentの品質基準にはしません。Quarry V2 sourceは承認前にruntimeへ直接参照させません。
 
 ## Canvas and resolution policy
 
@@ -187,7 +230,7 @@ Hard ceilingは使用目標ではありません。超過時は解像度、alpha
 
 ```text
 PC       60 FPS
-Android  60 FPS target / 30 FPS minimum
+Android  WAIVED — actual device unavailable; not a PASS
 ```
 
 V5ではGodot profilerまたは同等のframe measurementを記録します。画像導入前後を同条件で比較し、EnvironmentControllerの更新量やTelemetry頻度を変更して数値を合わせません。
@@ -226,7 +269,7 @@ RESOURCE / PERFORMANCE
 [ ] dimensions and PNG file sizes recorded
 [ ] estimated texture memory within budget
 [ ] PC 60 FPS pass
-[ ] Android 60 FPS target / 30 FPS minimum assessed
+[x] Android actual-device Gate explicitly WAIVED; no device available; not recorded as PASS
 
 ARCHITECTURE
 [ ] EnvironmentController unchanged
@@ -235,16 +278,93 @@ ARCHITECTURE
 [ ] debugger errors/warnings none
 ```
 
+## V5 composite gate
+
+Composite Gateはsource単体ではなく、Godot import、CENTER-COVER、parallax、depth modulation、hazard overlay、Golem placeholder、PC／Mobile UIを合成したruntime framebufferを評価します。
+
+### Measurement placeholder contract
+
+Measurement placeholderはアート資産でも将来のGolem silhouette仕様でもなく、背景とUIを測るための固定測定器です。特定のplaceholder輪郭に背景を過適合させません。
+
+```text
+POSE
+NEUTRAL
+WALKING_EXTENT
+HAZARD_REACTION_EXTENT
+
+SIGNAL
+NO_LIGHT
+NORMAL_CYAN
+WARNING_AMBER
+CRITICAL_RED
+```
+
+3 pose × 4 signalの全12状態を、PC 1280×720とMobile 720×1280の実Godot framebufferで取得します。評価対象は輪郭分離、局所コントラスト、UI可読性、焦点階層です。背景の合格条件は特定輪郭との一致ではなく、中央Safe Regionの低情報密度とsignal colorの分離です。
+
+```text
+tests/visual_log/v5_composite_baseline/
+├─ quarry_pc_measurement_baseline.png
+└─ quarry_mobile_measurement_baseline.png
+```
+
+Baseline captureの生成成功はComposite Gateの測定可能性だけを示し、North Star alignment PASSやV5 Deliverable Frozenを意味しません。
+
+```text
+V5-COMPOSITE-GATE
+
+A. SUBJECT PRIORITY
+[ ] Golem silhouette readable
+[ ] central safe region remains low-density
+[ ] background detail does not dominate subject
+[ ] WALKING / HAZARD reaction remain readable
+
+B. COLOR LANGUAGE
+[ ] normal cyan readable
+[ ] warning amber/orange readable
+[ ] critical orange-red/red strongest
+[ ] environment cyan remains lower-saturation/lower-emphasis
+[ ] environment does not use competing warning reds
+
+C. PC COMPOSITION
+[ ] environment remains primary viewport
+[ ] right-side log/map/status remain readable
+[ ] UI blocks do not obscure critical subject area
+[ ] retreat action preserves highest hierarchy
+
+D. MOBILE COMPOSITION
+[ ] CENTER-COVER keeps Golem placement viable
+[ ] environment + log upper composition remains readable
+[ ] vertical status stack remains legible
+[ ] bottom decision area remains visually dominant
+```
+
 ## Acceptance order
 
 ```text
-Specification review
-→ source asset production
-→ runtime PNG export
-→ Godot import metadata review
-→ seam / alpha / crop inspection
-→ performance and memory measurement
-→ V0–V5 regression
+1. Composite Gate definition
+2. Golem placeholder composite
+3. PC UI block composite
+4. Mobile UI block composite
+5. Quarry V2 source production
+6. Export to frozen runtime filenames
+7. Runtime framebuffer Gate
+8. North Star alignment review
+9. V0–V4 regression
+10. V5 DELIVERABLE FROZEN
 ```
 
-絵柄、装飾量、色調の最終決定は、この技術Gateが成立した後の品質レビューで扱います。
+North Star alignmentはsource画像だけでは判定せず、actual Godot import、actual crop、actual parallax、actual depth modulation、actual hazard overlay、actual UI placementを通したruntime framebufferの後に判定します。
+
+## Final V5 disposition
+
+```text
+ART / COMPOSITE           PASS
+RUNTIME CONFORMANCE       PASS
+PC PERFORMANCE            PASS
+ANDROID ACTUAL DEVICE     WAIVED — DEVICE UNAVAILABLE
+
+V5 DELIVERABLE            FROZEN
+V5 VERDICT                PASS
+```
+
+Android actual-device validation succeededとはみなしません。利用可能な実機がないためV5の受入条件から明示的に除外した記録です。将来Android対応を再開する場合は、V5を再オープンせず独立したdevice-validation Gateで管理します。
