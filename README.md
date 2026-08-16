@@ -10,6 +10,15 @@ PC・モバイル向けの遠征監視画面を検証する、Godot 4製Presenta
 
 ## Current vertical slice
 
+`NORTH_STAR_INTEGRATION_V0` connects the presentation-only cycle:
+
+```text
+WORKSHOP → DESIGN / BLUEPRINT → FABRICATION CONFIRMED
+         → EXPEDITION → HAZARD / RESULT → RETURN → WORKSHOP
+```
+
+Workshop, Blueprint, fabrication, and result screens consume immutable host snapshots. They do not save canonical Blueprints, calculate fabrication, spend ACTION, determine damage, or award cargo. The embedded Expedition view retains its existing telemetry pipeline.
+
 起動すると5件のMock Telemetryを順番に再生します。
 
 ```text
