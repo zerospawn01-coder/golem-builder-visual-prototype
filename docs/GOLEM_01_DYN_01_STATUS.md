@@ -22,7 +22,7 @@ The first articulation slice uses a pelvis-socket-based `LeftHipPivot` and a chi
 
 ```text
 HIP neutral                   PASS
-HIP forward / back            NOT STARTED
+HIP forward / back            PASS (exploration bounds +45 / -20 degrees)
 KNEE partial / deep           NOT STARTED
 ground contact                NOT STARTED
 PC / Mobile dynamic review   NOT STARTED

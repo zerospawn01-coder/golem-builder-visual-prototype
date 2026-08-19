@@ -6,16 +6,22 @@ const PELVIS_PIVOT_SOURCE := Vector2(626.0, 327.0)
 const ASSEMBLY_TARGET := Vector2(826.0, 1110.0)
 const ASSEMBLY_SCALE := 0.70
 const LEFT_THIGH_PIVOT := Vector2(612.0, 151.0)
+const RIGHT_HIP_MIRROR_X := ASSEMBLY_TARGET.x * 2.0 - (ASSEMBLY_TARGET + (PELVIS_SOCKET_LEFT - PELVIS_PIVOT_SOURCE) * ASSEMBLY_SCALE).x
 
 @onready var left_hip_pivot: Node2D = $Pelvis/LeftHipPivot
 @onready var left_thigh_sprite: Sprite2D = $Pelvis/LeftHipPivot/LeftThighSprite
+@onready var right_hip_pivot: Node2D = $Pelvis/RightHipPivot
+@onready var right_thigh_sprite: Sprite2D = $Pelvis/RightHipPivot/RightThighSprite
 
 
 func _ready() -> void:
 	$Pelvis/PelvisSprite.texture = _load_texture("res://assets/source/golem/golem_01/parts/pelvis/pelvis_source_v1.png")
 	left_thigh_sprite.texture = _load_texture("res://assets/source/golem/golem_01/parts/left_thigh/left_thigh_source_v1.png")
+	right_thigh_sprite.texture = _load_texture("res://assets/source/golem/golem_01/parts/right_thigh/right_thigh_source_v1.png")
 	left_hip_pivot.rotation = 0.0
 	left_thigh_sprite.rotation = 0.0
+	right_hip_pivot.rotation = 0.0
+	right_thigh_sprite.rotation = 0.0
 
 
 func _load_texture(path: String) -> Texture2D:
@@ -28,6 +34,8 @@ func _load_texture(path: String) -> Texture2D:
 func set_left_hip_rotation(angle: float) -> void:
 	left_hip_pivot.rotation = angle
 	left_thigh_sprite.rotation = 0.0
+	right_hip_pivot.rotation = -angle
+	right_thigh_sprite.rotation = 0.0
 
 
 func left_hip_position() -> Vector2:
@@ -36,3 +44,11 @@ func left_hip_position() -> Vector2:
 
 func left_thigh_sprite_offset() -> Vector2:
 	return -LEFT_THIGH_PIVOT
+
+
+func right_hip_position() -> Vector2:
+	return Vector2(RIGHT_HIP_MIRROR_X, left_hip_position().y)
+
+
+func right_thigh_sprite_offset() -> Vector2:
+	return Vector2(LEFT_THIGH_PIVOT.x, -LEFT_THIGH_PIVOT.y)

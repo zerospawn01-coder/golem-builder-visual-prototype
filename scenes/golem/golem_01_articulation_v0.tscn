@@ -18,3 +18,11 @@ position = Vector2(1094.8, 1336.1)
 [node name="LeftThighSprite" type="Sprite2D" parent="Pelvis/LeftHipPivot"]
 scale = Vector2(0.7, 0.7)
 offset = Vector2(-612, -151)
+
+[node name="RightHipPivot" type="Node2D" parent="Pelvis"]
+position = Vector2(557.2, 1336.1)
+
+[node name="RightThighSprite" type="Sprite2D" parent="Pelvis/RightHipPivot"]
+scale = Vector2(0.7, 0.7)
+offset = Vector2(612, -151)
+flip_h = true
