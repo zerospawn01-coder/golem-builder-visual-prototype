@@ -32,3 +32,5 @@ PCとMobileは同じruntime textureを使用し、View側のcover、crop、ancho
 - Git LFSはfixture段階では使用せず、実素材導入時に容量基準とともに判断する。
 
 RGBA8 mipmapなしの概算GPUメモリは `width × height × 4 bytes`、RGB8は`width × height × 3 bytes`として予算化します。実測が可能になった段階でGodot Inspectorおよび対象端末のプロファイル結果を優先します。
+
+最初の実背景セットの制作契約は[Quarry Environment Asset Specification](QUARRY_ENVIRONMENT_ASSET_SPEC.md)を参照してください。

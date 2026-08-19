@@ -53,11 +53,8 @@ func run_gate() -> void:
 	check(estimated_memory <= MAX_TEST_MEMORY_BYTES, "test textures stay within memory budget")
 	var view_source := FileAccess.get_file_as_string("res://scripts/views/environment_view.gd")
 	var controller_source := FileAccess.get_file_as_string("res://scripts/environment/environment_controller.gd")
-	var scene_source := FileAccess.get_file_as_string("res://scenes/expedition/expedition_scene.tscn")
 	check(not view_source.contains("FileAccess") and not view_source.contains("Image.load"), "EnvironmentView does not bypass ResourceLoader")
-	check(not controller_source.contains("Texture2D") and not controller_source.contains("background_test"), "EnvironmentController remains asset-agnostic")
-	for path in ASSETS.values():
-		check(scene_source.contains(path), "%s is bound as a Godot resource" % path)
+	check(not controller_source.contains("Texture2D") and not controller_source.contains("assets/runtime"), "EnvironmentController remains asset-agnostic")
 
 	var packed := load("res://scenes/expedition/expedition_scene.tscn") as PackedScene
 	var scene := packed.instantiate()

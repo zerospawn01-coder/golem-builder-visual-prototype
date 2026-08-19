@@ -83,7 +83,18 @@ func _draw_foreground_layer() -> void:
 
 
 func _draw_texture_layer(texture: Texture2D, offset: float) -> void:
-	var source_rect := Rect2(Vector2(offset, 0.0), Vector2(size.x, texture.get_height()))
+	var texture_size := texture.get_size()
+	if texture_size.x <= 0.0 or texture_size.y <= 0.0 or size.x <= 0.0 or size.y <= 0.0:
+		return
+	var cover_scale := maxf(size.x / texture_size.x, size.y / texture_size.y)
+	var tile_size := texture_size * cover_scale
+	var phase := fposmod(offset, texture_size.x) * cover_scale
+	var origin := Vector2((size.x - tile_size.x) * 0.5 - phase, (size.y - tile_size.y) * 0.5)
+	while origin.x > 0.0:
+		origin.x -= tile_size.x
 	var modulate := Color.WHITE.darkened(visual_intensity)
-	draw_texture_rect_region(texture, Rect2(Vector2.ZERO, size), source_rect, modulate)
+	var x := origin.x
+	while x < size.x:
+		draw_texture_rect(texture, Rect2(Vector2(x, origin.y), tile_size), false, modulate)
+		x += tile_size.x
 

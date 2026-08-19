@@ -7,9 +7,9 @@
 [ext_resource path="res://scripts/motion/motion_controller.gd" type="Script" id="5"]
 [ext_resource path="res://scripts/views/environment_view.gd" type="Script" id="6"]
 [ext_resource path="res://scripts/environment/environment_controller.gd" type="Script" id="7"]
-[ext_resource path="res://assets/runtime/environment/background/background_test.png" type="Texture2D" id="8"]
-[ext_resource path="res://assets/runtime/environment/midground/midground_test.png" type="Texture2D" id="9"]
-[ext_resource path="res://assets/runtime/environment/foreground/foreground_test.png" type="Texture2D" id="10"]
+[ext_resource path="res://assets/runtime/environment/quarry/background/quarry_background_v1.png" type="Texture2D" id="8"]
+[ext_resource path="res://assets/runtime/environment/quarry/midground/quarry_midground_v1.png" type="Texture2D" id="9"]
+[ext_resource path="res://assets/runtime/environment/quarry/foreground/quarry_foreground_v1.png" type="Texture2D" id="10"]
 
 [sub_resource type="StyleBoxFlat" id="StylePanel"]
 bg_color = Color(0.055, 0.071, 0.082, 0.96)
