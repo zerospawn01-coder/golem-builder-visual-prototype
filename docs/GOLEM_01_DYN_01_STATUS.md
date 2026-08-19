@@ -29,7 +29,7 @@ ground contact                PASS (production knee anchors, symmetric baseline 
 PC / Mobile dynamic review   NOT STARTED
 ```
 
-The DYN-01 verdict remains `INCOMPLETE` until the dynamic checks and the 9:16 mobile viewport evidence are complete.
+The DYN-01 verdict is `DYNAMIC LOWER BODY READY` for the structural placeholder scope. Formal lower-leg art and Android export remain separate gates.
 
 ## Production-anchor visual evidence
 
