@@ -16,8 +16,13 @@ The machine gate verifies the renderer settings, PNG loadability, exact alpha co
 
 ## Dynamic gates
 
+### HIP neutral — PASS
+
+The first articulation slice uses a pelvis-socket-based `LeftHipPivot` and a child `LeftThighSprite`. The Sprite uses an attachment offset and keeps `rotation = 0`; only the parent pivot is permitted to rotate. Neutral coordinate regression and runtime texture resolution pass under the Compatibility renderer, while forward/back evidence is still pending.
+
 ```text
-HIP neutral / forward / back  NOT STARTED
+HIP neutral                   PASS
+HIP forward / back            NOT STARTED
 KNEE partial / deep           NOT STARTED
 ground contact                NOT STARTED
 PC / Mobile dynamic review   NOT STARTED

@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource path="res://scripts/golem/golem_01_articulation_v0.gd" type="Script" id="1"]
+
+[node name="Golem01ArticulationV0" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Pelvis" type="Node2D" parent="."]
+
+[node name="PelvisSprite" type="Sprite2D" parent="Pelvis"]
+position = Vector2(826, 1110)
+scale = Vector2(0.7, 0.7)
+offset = Vector2(-626, -327)
+
+[node name="LeftHipPivot" type="Node2D" parent="Pelvis"]
+position = Vector2(1094.8, 1336.1)
+
+[node name="LeftThighSprite" type="Sprite2D" parent="Pelvis/LeftHipPivot"]
+scale = Vector2(0.7, 0.7)
+offset = Vector2(-612, -151)
