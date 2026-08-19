@@ -37,6 +37,19 @@ func run_test() -> void:
 	check(torso.texture != null and torso.visible, "UpperBody torso remains visible after lower rotation")
 	check(torso.global_position.is_equal_approx(torso_before), "UpperBody torso position unaffected by lower rotation")
 	check(is_equal_approx(torso.global_rotation, torso_rotation_before), "UpperBody torso rotation unaffected by lower rotation")
+	var camera_position := Vector2(826, 1500)
+	var camera_zoom := Vector2(0.3, 0.3)
+	var viewport_size := Vector2(1280, 720)
+	var half_extent := viewport_size / (2.0 * camera_zoom)
+	print("ASSEMBLY CAMERA bounds: position=", camera_position, " zoom=", camera_zoom, " left=", camera_position.x - half_extent.x, " right=", camera_position.x + half_extent.x, " top=", camera_position.y - half_extent.y, " bottom=", camera_position.y + half_extent.y)
+	check(camera_position == Vector2(826, 1500), "assembly camera position is fixed")
+	check(camera_zoom == Vector2(0.3, 0.3), "assembly camera zoom is fixed")
+	for pose in [{"name":"forward", "hip":45.0, "knee":0.0}, {"name":"composite", "hip":45.0, "knee":-90.0}]:
+		assembly.get_node("LowerBodyRig").set_left_hip_rotation(deg_to_rad(pose.hip))
+		assembly.get_node("LowerBodyRig").set_left_knee_rotation(deg_to_rad(pose.knee))
+		await process_frame
+		print("ASSEMBLY %s torso: visible=" % pose.name, torso.visible, " global_position=", torso.global_position, " global_rotation=", torso.global_rotation, " texture=", torso.texture != null)
+		check(torso.visible and torso.texture != null, "%s torso remains visible" % pose.name)
 	assembly.queue_free()
 	await process_frame
 	if failures.is_empty():
