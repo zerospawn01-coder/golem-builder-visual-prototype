@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource path="res://scripts/expedition/expedition_scene.gd" type="Script" id="1"]
 [ext_resource path="res://scripts/presentation/expedition_presenter.gd" type="Script" id="2"]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/runtime/environment/quarry/background/quarry_background_v1.png" type="Texture2D" id="8"]
 [ext_resource path="res://assets/runtime/environment/quarry/midground/quarry_midground_v1.png" type="Texture2D" id="9"]
 [ext_resource path="res://assets/runtime/environment/quarry/foreground/quarry_foreground_v1.png" type="Texture2D" id="10"]
+[ext_resource path="res://scenes/golem/golem_01_articulation_v0.tscn" type="PackedScene" id="11"]
 
 [sub_resource type="StyleBoxFlat" id="StylePanel"]
 bg_color = Color(0.055, 0.071, 0.082, 0.96)
@@ -139,6 +140,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("4")
+
+[node name="GolemRigViewport" type="SubViewportContainer" parent="Margin/RootColumn/MainSplit/GolemPanel/GolemView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+mouse_filter = 2
+
+[node name="SubViewport" type="SubViewport" parent="Margin/RootColumn/MainSplit/GolemPanel/GolemView/GolemRigViewport"]
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+transparent_bg = true
+
+[node name="Golem01ArticulationV0" parent="Margin/RootColumn/MainSplit/GolemPanel/GolemView/GolemRigViewport/SubViewport" instance=ExtResource("11")]
+
+[node name="RigCamera" type="Camera2D" parent="Margin/RootColumn/MainSplit/GolemPanel/GolemView/GolemRigViewport/SubViewport"]
+position = Vector2(826, 1841)
+zoom = Vector2(0.5, 0.5)
+enabled = true
 
 [node name="MotionController" type="Node" parent="Margin/RootColumn/MainSplit/GolemPanel"]
 unique_name_in_owner = true
