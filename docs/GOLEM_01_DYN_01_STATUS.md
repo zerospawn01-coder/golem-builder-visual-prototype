@@ -25,7 +25,7 @@ HIP neutral                   PASS
 HIP forward / back            PASS (exploration bounds +45 / -20 degrees)
 KNEE partial / deep           PASS (placeholder, -30 / -90 degrees)
 HIP + KNEE composite          PASS (hip +45 / knee -90)
-ground contact                NOT STARTED
+ground contact                PASS (fixed pelvis, symmetric baseline y=2346.1)
 PC / Mobile dynamic review   NOT STARTED
 ```
 
