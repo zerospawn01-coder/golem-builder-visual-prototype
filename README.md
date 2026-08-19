@@ -10,6 +10,8 @@ PC・モバイル向けの遠征監視画面を検証する、Godot 4製Presenta
 
 ## Technical Baseline
 
+`GODOT_BINARY = C:\\Users\\zeros\\OneDrive\\Desktop\\Godot_v4.7.1-stable_win64.exe` (Godot 4.7.1 stable; fixed verification binary)
+
 `V-TECH-01` freezes the runtime target for the visual prototype before dynamic golem work begins.
 
 ```text
