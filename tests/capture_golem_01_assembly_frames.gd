@@ -21,22 +21,24 @@ func run() -> void:
 		return
 	var packed := load("res://scenes/golem/golem_01_assembly_v0.tscn") as PackedScene
 	for spec in [{"name":"assembly_pc", "size":Vector2i(1280,720)}]:
-		var viewport := SubViewport.new()
-		viewport.size = spec.size
-		viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-		viewport.transparent_bg = true
-		root.add_child(viewport)
-		var assembly := packed.instantiate()
-		viewport.add_child(assembly)
-		var rig := assembly.get_node("LowerBodyRig") as Golem01ArticulationV0
-		var camera := Camera2D.new()
-		camera.position = Vector2(826, 1500)
-		camera.zoom = Vector2(0.3, 0.3)
-		viewport.add_child(camera)
-		camera.enabled = true
 		for pose in POSES:
+			var viewport := SubViewport.new()
+			viewport.size = spec.size
+			viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+			viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
+			viewport.transparent_bg = true
+			root.add_child(viewport)
+			var assembly := packed.instantiate()
+			viewport.add_child(assembly)
+			var rig := assembly.get_node("LowerBodyRig") as Golem01ArticulationV0
+			var camera := Camera2D.new()
+			camera.position = Vector2(826, 1500)
+			camera.zoom = Vector2(0.3, 0.3)
+			viewport.add_child(camera)
+			camera.enabled = true
 			rig.set_left_hip_rotation(deg_to_rad(float(pose.hip)))
 			rig.set_left_knee_rotation(deg_to_rad(float(pose.knee)))
+			await process_frame
 			await process_frame
 			await process_frame
 			var image := viewport.get_texture().get_image()
@@ -44,6 +46,6 @@ func run() -> void:
 			var path := "%s/%s_%s.png" % [OUTPUT_DIR, spec.name, pose.name]
 			image.save_png(ProjectSettings.globalize_path(path))
 			print("ASSEMBLY FRAME SAVED: %s (%dx%d)" % [path, image.get_width(), image.get_height()])
-		viewport.queue_free()
-		await process_frame
+			viewport.queue_free()
+			await process_frame
 	quit(0)
