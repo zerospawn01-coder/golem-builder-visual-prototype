@@ -4,6 +4,8 @@ This checklist applies to every new visual effect, shader, particle system, mate
 
 ## V-TECH-01 baseline
 
+Current evidence: Windows PC GUI launch is PASS at the 1280×720 project viewport. Mobile portrait launch remains pending.
+
 - [ ] Effect renders with `gl_compatibility` on desktop.
 - [ ] Effect renders with `gl_compatibility` on mobile.
 - [ ] Effect does not require Forward+ features, clustered lighting, compute shaders, or renderer-specific storage buffers.

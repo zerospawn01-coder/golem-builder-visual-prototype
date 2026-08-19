@@ -21,7 +21,7 @@ Mobile target  9:16 portrait (720×1280 reference viewport)
 - [x] Compatibility renderer is explicit in `project.godot`.
 - [x] PC reference viewport is 1280×720 and VSync is explicitly disabled.
 - [x] No Forward+ renderer dependency, Forward+ shader, or VFX shader is present in the repository.
-- [ ] Windows PC launch confirmation — manual hardware check required.
+- [x] Windows PC launch confirmation — Godot 4.7.1 stable GUI run verified at the 1280×720 project viewport; VSync OFF is fixed in `project.godot`.
 - [ ] Mobile portrait launch confirmation — manual device/emulator check required.
 - [x] VFX compatibility checklist is frozen in [`docs/VFX_COMPATIBILITY_CHECKLIST.md`](docs/VFX_COMPATIBILITY_CHECKLIST.md).
 
