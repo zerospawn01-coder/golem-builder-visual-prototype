@@ -26,3 +26,17 @@ position = Vector2(557.2, 1336.1)
 scale = Vector2(0.7, 0.7)
 offset = Vector2(612, -151)
 flip_h = true
+
+[node name="LeftKneePivot" type="Node2D" parent="Pelvis/LeftHipPivot"]
+position = Vector2(0, 650)
+
+[node name="LeftLowerLegPlaceholder" type="Polygon2D" parent="Pelvis/LeftHipPivot/LeftKneePivot"]
+polygon = PackedVector2Array(-55, 0, 55, 0, 45, 360, -45, 360)
+color = Color(0.35, 0.42, 0.5, 0.75)
+
+[node name="RightKneePivot" type="Node2D" parent="Pelvis/RightHipPivot"]
+position = Vector2(0, 650)
+
+[node name="RightLowerLegPlaceholder" type="Polygon2D" parent="Pelvis/RightHipPivot/RightKneePivot"]
+polygon = PackedVector2Array(-55, 0, 55, 0, 45, 360, -45, 360)
+color = Color(0.35, 0.42, 0.5, 0.75)

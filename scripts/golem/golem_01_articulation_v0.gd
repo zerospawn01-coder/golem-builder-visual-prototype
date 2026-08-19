@@ -7,11 +7,14 @@ const ASSEMBLY_TARGET := Vector2(826.0, 1110.0)
 const ASSEMBLY_SCALE := 0.70
 const LEFT_THIGH_PIVOT := Vector2(612.0, 151.0)
 const RIGHT_HIP_MIRROR_X := ASSEMBLY_TARGET.x * 2.0 - (ASSEMBLY_TARGET + (PELVIS_SOCKET_LEFT - PELVIS_PIVOT_SOURCE) * ASSEMBLY_SCALE).x
+const KNEE_LOCAL_POSITION := Vector2(0.0, 650.0)
 
 @onready var left_hip_pivot: Node2D = $Pelvis/LeftHipPivot
 @onready var left_thigh_sprite: Sprite2D = $Pelvis/LeftHipPivot/LeftThighSprite
 @onready var right_hip_pivot: Node2D = $Pelvis/RightHipPivot
 @onready var right_thigh_sprite: Sprite2D = $Pelvis/RightHipPivot/RightThighSprite
+@onready var left_knee_pivot: Node2D = $Pelvis/LeftHipPivot/LeftKneePivot
+@onready var right_knee_pivot: Node2D = $Pelvis/RightHipPivot/RightKneePivot
 
 
 func _ready() -> void:
@@ -22,6 +25,8 @@ func _ready() -> void:
 	left_thigh_sprite.rotation = 0.0
 	right_hip_pivot.rotation = 0.0
 	right_thigh_sprite.rotation = 0.0
+	left_knee_pivot.rotation = 0.0
+	right_knee_pivot.rotation = 0.0
 
 
 func _load_texture(path: String) -> Texture2D:
@@ -36,6 +41,12 @@ func set_left_hip_rotation(angle: float) -> void:
 	left_thigh_sprite.rotation = 0.0
 	right_hip_pivot.rotation = -angle
 	right_thigh_sprite.rotation = 0.0
+	right_knee_pivot.rotation = -left_knee_pivot.rotation
+
+
+func set_left_knee_rotation(angle: float) -> void:
+	left_knee_pivot.rotation = angle
+	right_knee_pivot.rotation = -angle
 
 
 func left_hip_position() -> Vector2:
@@ -52,3 +63,7 @@ func right_hip_position() -> Vector2:
 
 func right_thigh_sprite_offset() -> Vector2:
 	return Vector2(LEFT_THIGH_PIVOT.x, -LEFT_THIGH_PIVOT.y)
+
+
+func left_knee_position() -> Vector2:
+	return KNEE_LOCAL_POSITION
