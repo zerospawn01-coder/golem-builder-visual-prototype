@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource path="res://scripts/golem/golem_01_assembly_v0.gd" type="Script" id="1"]
+[ext_resource path="res://scenes/golem/golem_01_articulation_v0.tscn" type="PackedScene" id="2"]
+
+[node name="GolemRoot" type="Node2D"]
+script = ExtResource("1")
+
+[node name="UpperBody" type="Node2D" parent="."]
+
+[node name="PelvisSprite" type="Sprite2D" parent="UpperBody"]
+centered = false
+position = Vector2(826, 1110)
+scale = Vector2(0.7, 0.7)
+offset = Vector2(-626, -327)
+
+[node name="TorsoSprite" type="Sprite2D" parent="UpperBody"]
+centered = false
+position = Vector2(826, 1110)
+offset = Vector2(-626, -1010)
+
+[node name="CoreSprite" type="Sprite2D" parent="UpperBody"]
+centered = false
+position = Vector2(950, 685)
+scale = Vector2(0.52, 0.52)
+offset = Vector2(-727, -633)
+
+[node name="LowerBodyRig" parent="." instance=ExtResource("2")]
