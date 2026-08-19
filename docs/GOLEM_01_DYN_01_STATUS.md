@@ -30,3 +30,14 @@ PC / Mobile dynamic review   NOT STARTED
 ```
 
 The DYN-01 verdict remains `INCOMPLETE` until the dynamic checks and the 9:16 mobile viewport evidence are complete.
+
+## Production-anchor visual evidence
+
+All explored poses were re-captured after production knee-anchor correction under Godot 4.7.1 stable and Compatibility rendering:
+
+```text
+neutral / hip +45 / hip -20 / knee -30 / knee -90 / hip +45 + knee -90  CAPTURED
+pixel-level rig separation / structural holes / double outlines                 PASS (visual review)
+lower-leg placeholder overlap                                                     NON-BLOCKING / placeholder scope
+mobile 9:16                                                                       NOT STARTED
+```
