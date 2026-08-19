@@ -159,8 +159,8 @@ transparent_bg = true
 [node name="Golem01ArticulationV0" parent="Margin/RootColumn/MainSplit/GolemPanel/GolemView/GolemRigViewport/SubViewport" instance=ExtResource("11")]
 
 [node name="RigCamera" type="Camera2D" parent="Margin/RootColumn/MainSplit/GolemPanel/GolemView/GolemRigViewport/SubViewport"]
-position = Vector2(826, 1841)
-zoom = Vector2(0.5, 0.5)
+position = Vector2(826, 1500)
+zoom = Vector2(0.3, 0.3)
 enabled = true
 
 [node name="MotionController" type="Node" parent="Margin/RootColumn/MainSplit/GolemPanel"]

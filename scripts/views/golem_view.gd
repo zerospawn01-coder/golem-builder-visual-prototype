@@ -35,6 +35,8 @@ var reaction_strength := 0.0:
 
 
 func _draw() -> void:
+	if has_node("GolemRigViewport"):
+		return
 	if measurement_enabled:
 		_draw_measurement_placeholder()
 		return

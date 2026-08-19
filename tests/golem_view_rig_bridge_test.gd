@@ -25,8 +25,8 @@ func run_test() -> void:
 	check(container.stretch, "rig viewport container stretches to GolemView")
 	check(viewport.render_target_update_mode == SubViewport.UPDATE_ALWAYS, "rig viewport updates every frame")
 	check(viewport.size.x > 0 and viewport.size.y > 0, "rig viewport has nonzero render size after container fit")
-	check(rig_camera.position.is_equal_approx(Vector2(826, 1841)), "camera centers existing rig world coordinates")
-	check(rig_camera.zoom.is_equal_approx(Vector2(0.5, 0.5)), "camera uses display-only zoom")
+	check(rig_camera.position.is_equal_approx(Vector2(826, 1500)), "camera centers existing rig world coordinates")
+	check(rig_camera.zoom.is_equal_approx(Vector2(0.3, 0.3)), "camera uses display-only zoom")
 	check(viewport.get_node("Golem01ArticulationV0") is Golem01ArticulationV0, "rig is viewport child without coordinate edits")
 	scene.queue_free()
 	await process_frame

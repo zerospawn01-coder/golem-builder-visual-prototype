@@ -8,6 +8,7 @@ script = ExtResource("1")
 [node name="Pelvis" type="Node2D" parent="."]
 
 [node name="PelvisSprite" type="Sprite2D" parent="Pelvis"]
+centered = false
 position = Vector2(826, 1110)
 scale = Vector2(0.7, 0.7)
 offset = Vector2(-626, -327)
@@ -16,27 +17,28 @@ offset = Vector2(-626, -327)
 position = Vector2(1094.8, 1336.1)
 
 [node name="LeftThighSprite" type="Sprite2D" parent="Pelvis/LeftHipPivot"]
+centered = false
 scale = Vector2(0.7, 0.7)
 offset = Vector2(-612, -151)
 
 [node name="RightHipPivot" type="Node2D" parent="Pelvis"]
-position = Vector2(557.2, 1336.1)
+position = Vector2(556.5, 1336.1)
 
 [node name="RightThighSprite" type="Sprite2D" parent="Pelvis/RightHipPivot"]
+centered = false
 scale = Vector2(0.7, 0.7)
-offset = Vector2(612, -151)
-flip_h = true
+offset = Vector2(-622, -184)
 
 [node name="LeftKneePivot" type="Node2D" parent="Pelvis/LeftHipPivot"]
-position = Vector2(0, 650)
+position = Vector2(-23.1, 633.5)
 
 [node name="LeftLowerLegPlaceholder" type="Polygon2D" parent="Pelvis/LeftHipPivot/LeftKneePivot"]
 polygon = PackedVector2Array(-55, 0, 55, 0, 45, 360, -45, 360)
 color = Color(0.35, 0.42, 0.5, 0.75)
 
 [node name="RightKneePivot" type="Node2D" parent="Pelvis/RightHipPivot"]
-position = Vector2(0, 650)
+position = Vector2(95.2, 547.4)
 
 [node name="RightLowerLegPlaceholder" type="Polygon2D" parent="Pelvis/RightHipPivot/RightKneePivot"]
-polygon = PackedVector2Array(-55, 0, 55, 0, 45, 360, -45, 360)
+polygon = PackedVector2Array(-55, 0, 55, 0, 45, 446.1, -45, 446.1)
 color = Color(0.35, 0.42, 0.5, 0.75)

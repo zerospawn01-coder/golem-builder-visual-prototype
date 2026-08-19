@@ -15,6 +15,7 @@ func run_test() -> void:
 	root.add_child(rig)
 	await process_frame
 	check(rig.left_knee_pivot.position.is_equal_approx(rig.left_knee_position()), "neutral knee attaches at thigh endpoint")
+	check(rig.right_knee_pivot.position.is_equal_approx(rig.right_knee_position()), "right knee uses its production attachment")
 	check(rig.left_knee_pivot.get_parent() == rig.left_hip_pivot, "knee pivot is parallel to thigh sprite")
 	for angle in [0.0, deg_to_rad(-30.0), deg_to_rad(-90.0)]:
 		rig.set_left_knee_rotation(angle)

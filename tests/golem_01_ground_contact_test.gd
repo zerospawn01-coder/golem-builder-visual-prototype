@@ -21,13 +21,13 @@ func run_test() -> void:
 	check(is_equal_approx(left_contact.y, rig.ground_contact_y()), "left foot reaches ground baseline")
 	check(is_equal_approx(right_contact.y, rig.ground_contact_y()), "right foot reaches ground baseline")
 	check(is_equal_approx(left_contact.y, right_contact.y), "left/right contact y is identical")
-	check(is_equal_approx(left_contact.x, 1094.8), "left contact remains centered under left chain")
-	check(is_equal_approx(right_contact.x, 557.2), "right contact remains centered under right chain")
+	check(is_equal_approx(left_contact.x, 1071.7), "left contact follows production knee attachment")
+	check(is_equal_approx(right_contact.x, 651.7), "right contact follows production knee attachment")
 	check(is_equal_approx(rig.left_hip_pivot.rotation, 0.0) and is_equal_approx(rig.left_knee_pivot.rotation, 0.0), "ground pose is neutral standing pose")
 	rig.queue_free()
 	await process_frame
 	if failures.is_empty():
-		print("GOLEM-01-DYN-01 GROUND CONTACT: PASS (fixed pelvis, symmetric baseline y=2346.1)")
+		print("GOLEM-01-DYN-01 GROUND CONTACT: PASS (fixed pelvis, symmetric baseline y=2329.6)")
 		quit(0)
 	else:
 		print("GOLEM-01-DYN-01 GROUND CONTACT: FAIL (%d checks)" % failures.size())
