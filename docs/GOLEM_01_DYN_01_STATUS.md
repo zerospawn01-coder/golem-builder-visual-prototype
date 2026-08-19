@@ -39,5 +39,5 @@ All explored poses were re-captured after production knee-anchor correction unde
 neutral / hip +45 / hip -20 / knee -30 / knee -90 / hip +45 + knee -90  CAPTURED
 pixel-level rig separation / structural holes / double outlines                 PASS (visual review)
 lower-leg placeholder overlap                                                     NON-BLOCKING / placeholder scope
-mobile 9:16                                                                       NOT STARTED
+mobile 9:16                                                                       PASS (PC simulation, 720x1280)
 ```
