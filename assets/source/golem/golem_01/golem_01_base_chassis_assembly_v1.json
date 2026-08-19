@@ -1,0 +1,38 @@
+{
+  "assembly_id": "GOLEM-01-BASE-CHASSIS-V1",
+  "canvas_size": [1600, 1800],
+  "background_rgba": [0, 0, 0, 0],
+  "pelvis_lower_attachment": {
+    "position": [826, 1553.1],
+    "relative_to_pelvis_pivot": [0, 443.1],
+    "scale_ref": 0.70,
+    "coordinate_space": "assembly_canvas",
+    "source_basis": "pelvis semantic lower bound y=960 minus pivot y=327, scaled by pelvis 0.70"
+  },
+  "nodes": [
+    {
+      "part_id": "pelvis",
+      "image": "parts/pelvis/pelvis_source_v1.png",
+      "pivot_source_xy": [626, 327],
+      "target_canvas_xy": [826, 1110],
+      "scale": 0.70,
+      "layer": 10
+    },
+    {
+      "part_id": "torso",
+      "image": "parts/torso/torso_source_v1.png",
+      "pivot_source_xy": [626, 1010],
+      "target_canvas_xy": [826, 1110],
+      "scale": 1.0,
+      "layer": 20
+    },
+    {
+      "part_id": "core",
+      "image": "parts/core/core_source_v1.png",
+      "pivot_source_xy": [727, 633],
+      "target_canvas_xy": [950, 685],
+      "scale": 0.52,
+      "layer": 30
+    }
+  ]
+}
