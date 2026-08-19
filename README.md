@@ -8,7 +8,35 @@ PC・モバイル向けの遠征監視画面を検証する、Godot 4製Presenta
 
 > ゲーム本体が結果を決定し、Visual Prototypeがその結果を画面上で演じる。
 
+## Technical Baseline
+
+`V-TECH-01` freezes the runtime target for the visual prototype before dynamic golem work begins.
+
+```text
+Renderer       gl_compatibility (desktop + mobile)
+PC reference   1280×720 / VSync OFF
+Mobile target  9:16 portrait (720×1280 reference viewport)
+```
+
+- [x] Compatibility renderer is explicit in `project.godot`.
+- [x] PC reference viewport is 1280×720 and VSync is explicitly disabled.
+- [x] No Forward+ renderer dependency, Forward+ shader, or VFX shader is present in the repository.
+- [x] Windows PC launch confirmation — Godot 4.7.1 stable GUI run verified at the 1280×720 project viewport; VSync OFF is fixed in `project.godot`.
+- [ ] Mobile portrait launch confirmation — manual device/emulator check required.
+- [x] VFX compatibility checklist is frozen in [`docs/VFX_COMPATIBILITY_CHECKLIST.md`](docs/VFX_COMPATIBILITY_CHECKLIST.md).
+
+The two unchecked launch items are evidence gates, not renderer configuration defaults. They must be completed on a Windows PC and a 9:16 portrait device/emulator before `V-TECH-01` is promoted from implementation-ready to hardware-verified.
+
 ## Current vertical slice
+
+`NORTH_STAR_INTEGRATION_V0` connects the presentation-only cycle:
+
+```text
+WORKSHOP → DESIGN / BLUEPRINT → FABRICATION CONFIRMED
+         → EXPEDITION → HAZARD / RESULT → RETURN → WORKSHOP
+```
+
+Workshop, Blueprint, fabrication, and result screens consume immutable host snapshots. They do not save canonical Blueprints, calculate fabrication, spend ACTION, determine damage, or award cargo. The embedded Expedition view retains its existing telemetry pipeline.
 
 起動すると5件のMock Telemetryを順番に再生します。
 

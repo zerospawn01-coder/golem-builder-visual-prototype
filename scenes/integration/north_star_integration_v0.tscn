@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource path="res://scripts/integration/north_star_integration_shell.gd" type="Script" id="1"]
+[ext_resource path="res://scripts/presentation/north_star_presenter.gd" type="Script" id="2"]
+[ext_resource path="res://scripts/integration/mock_north_star_host.gd" type="Script" id="3"]
+[ext_resource path="res://scenes/expedition/expedition_scene.tscn" type="PackedScene" id="4"]
+
+[node name="NorthStarIntegrationV0" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.018, 0.026, 0.032, 1)
+
+[node name="ExpeditionScene" parent="." instance=ExtResource("4")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+auto_start = false
+
+[node name="NorthStarPresenter" type="Node" parent="."]
+script = ExtResource("2")
+
+[node name="MockNorthStarHost" type="Node" parent="."]
+script = ExtResource("3")

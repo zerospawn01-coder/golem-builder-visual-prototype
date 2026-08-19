@@ -1,5 +1,7 @@
 extends Control
 
+@export var auto_start := true
+
 @onready var presenter: ExpeditionPresenter = $ExpeditionPresenter
 @onready var source: MockTelemetrySource = $MockTelemetrySource
 @onready var telemetry_row: HBoxContainer = %TelemetryRow
@@ -26,6 +28,11 @@ func _ready() -> void:
 	source.telemetry_received.connect(presenter.accept)
 	get_viewport().size_changed.connect(_apply_responsive_layout)
 	_apply_responsive_layout()
+	if auto_start:
+		start_presentation()
+
+
+func start_presentation() -> void:
 	source.start()
 
 
