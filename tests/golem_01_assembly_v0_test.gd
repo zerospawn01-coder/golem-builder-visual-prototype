@@ -23,6 +23,20 @@ func run_test() -> void:
 	check(assembly.get_node("UpperBody/PelvisSprite").texture != null, "UpperBody pelvis texture resolves")
 	check(assembly.get_node("UpperBody/TorsoSprite").texture != null, "UpperBody torso texture resolves")
 	check(assembly.get_node("UpperBody/CoreSprite").texture != null, "UpperBody core texture resolves")
+	var upper := assembly.get_node("UpperBody") as Node2D
+	var torso := assembly.get_node("UpperBody/TorsoSprite") as Sprite2D
+	var before_position := upper.global_position
+	var before_rotation := upper.global_rotation
+	var torso_before := torso.global_position
+	var torso_rotation_before := torso.global_rotation
+	assembly.get_node("LowerBodyRig").set_left_hip_rotation(deg_to_rad(45.0))
+	await process_frame
+	check(upper.get_parent() == assembly, "UpperBody is direct GolemRoot child")
+	check(upper.global_position.is_equal_approx(before_position), "UpperBody position unaffected by lower hip rotation")
+	check(is_equal_approx(upper.global_rotation, before_rotation), "UpperBody rotation unaffected by lower hip rotation")
+	check(torso.texture != null and torso.visible, "UpperBody torso remains visible after lower rotation")
+	check(torso.global_position.is_equal_approx(torso_before), "UpperBody torso position unaffected by lower rotation")
+	check(is_equal_approx(torso.global_rotation, torso_rotation_before), "UpperBody torso rotation unaffected by lower rotation")
 	assembly.queue_free()
 	await process_frame
 	if failures.is_empty():
